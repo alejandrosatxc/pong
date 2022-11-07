@@ -1,0 +1,12 @@
+html,
+body {
+  height: 100%
+}
+
+#player1,
+#player2 {
+    position: relative;
+    height: 100px;
+    width: 10px;
+    background-color: black;
+}
