@@ -1,36 +1,70 @@
-var position = 0
-function move (e) {
-    if (e.key === 'ArrowDown' && parseInt($('#player1').css('top')) < 600 - parseInt($('#player1').css('height'))) {
-        position += 10
+var player1Position = 0
+var player2Position = 0
+function move(e) {
+    if (e.key === 's' && parseInt($('#player1').css('top')) < 600 - parseInt($('#player1').css('height'))) {
+        player1Position += 10
     }
-    if (e.key === 'ArrowUp' && parseInt($('#player1').css('top')) > 0) {
-        position -= 10
+    if (e.key === 'w' && parseInt($('#player1').css('top')) > 0) {
+        player1Position -= 10
     }
-    $('#player1').css('top', position)
+    if (e.key === 'ArrowDown' && parseInt($('#player2').css('top')) < 600 - parseInt($('#player2').css('height'))) {
+        player2Position += 10
+    }
+    if (e.key === 'ArrowUp' && parseInt($('#player2').css('top')) > 0) {
+        player2Position -= 10
+    }
+    $('#player1').css('top', player1Position)
+    $('#player2').css('top', player2Position)
+
 }
 
+//Add event listener for player movement input
 $(window).on('keydown', move)
 
+//Board bounds
+var topBound = 0
+var rightBound = parseInt($('#board').css('width'))
+var bottomBound = parseInt($('#board').css('height'))
+var leftBound = 0
+
+//Paddle bounds
+var paddleHeight = parseInt($('#player1').css('height'))
+var paddleWidth = parseInt($('#player1').css('width'))
+
 //Ball physics
+var ballHeight = parseInt($('#ball').css('height'))
+var ballWidth = parseInt($('#ball').css('width'))
 var ballX = parseInt($('#ball').css('left'))
 var ballY = parseInt($('#ball').css('top'))
-var velocityX = 1
-var velocityY = 1
+var velocityX = 2
+var velocityY = 2
 var ballInterval = setInterval(() => {
     //change the X and Y position of the ball by the velocity in the X and Y direction
     ballX += velocityX
     ballY += velocityY
     //Reverse velocityX if left or right bounds is hit
-    if(ballX > 600 || ballX < 0) {
+    //change this to score
+    if (ballX < leftBound || ballX > rightBound - ballWidth) {
         velocityX = -velocityX
     }
     //Reverse velocityY if top or bottom bounds is hit
-    if(ballY > 600 || ballY < 0) {
+    //change this to score
+    if (ballY < topBound || ballY > bottomBound - ballHeight) {
         velocityY = -velocityY
+    }
+
+    //Player1 Paddle collision
+    if (ballX < leftBound + paddleWidth && (ballY > player1Position && ballY < player1Position + paddleHeight)) {
+        velocityX = -velocityX
+    }
+
+    //Player2 Paddle collision
+    if (ballX + ballWidth > rightBound - paddleWidth && (ballY > player2Position && ballY < player2Position + paddleHeight)) {
+        velocityX = -velocityX
     }
 
     //Update the position of the ball
     $('#ball').css('left', ballX)
     $('#ball').css('top', ballY)
 
-}, 1)
+}, 10)
