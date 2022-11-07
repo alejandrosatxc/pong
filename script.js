@@ -15,3 +15,24 @@ $(window).on('keydown', (e) => {
 
 
 })
+
+//Ball physics
+var ballX = parseInt($('#ball').css('left'))
+var ballY = parseInt($('#ball').css('top'))
+var velocityX = 5
+var velocityY = 5
+var ballInterval = setInterval(() => {
+    ballX += velocityX
+    ballY += velocityY
+    //Reverse velocity if left or right bounds is hit
+    if(ballX > 600 || ballX < 0) {
+        velocityX = -velocityX
+    }
+    if(ballY > 600 || ballY < 0) {
+        velocityY = -velocityY
+    }
+    //ballY += velocity
+    $('#ball').css('left', ballX)
+    $('#ball').css('top', ballY)
+
+}, 50)

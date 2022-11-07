@@ -3,10 +3,23 @@ body {
   height: 100%
 }
 
+#board {
+    position: relative;
+}
+
 #player1,
 #player2 {
     position: relative;
     height: 100px;
     width: 10px;
     background-color: black;
+}
+
+#ball {
+    height: 10px;
+    width: 10px;
+    background-color: red;
+    position: absolute;
+    top: 200px;
+    left: 300px;
 }
