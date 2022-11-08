@@ -7,6 +7,20 @@ body {
     position: relative;
 }
 
+#scoreboard {
+    position: absolute;
+    background-color: aqua;
+    text-align: center;
+    width: 100%;
+    height: fit-content;
+}
+
+#player1-score,
+#player2-score {
+    height: 30px;
+    margin: 0;
+}
+
 #player1,
 #player2 {
     position: relative;
